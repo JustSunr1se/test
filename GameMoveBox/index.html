@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang=en>
+
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<!-- <link rel="stylesheet" href="reset.css"> -->
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<h1>Hello world</h1>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+	<script type="text/javascript">
+		var direction = 'right';
+		var offset = 0;
+		function moveBox() {
+			if (direction === "right") {
+				$("h1").offset({ left: offset });
+				offset++;
+				if (offset > 200) {
+					offset = 0;
+					direction = "down";
+				}
+			} else if (direction === "down") {
+				$("h1").offset({ top: offset });
+				offset++;
+				if (offset > 200) {
+					offset = 200;
+					direction = "left";
+				}
+			} else if (direction === "left") {
+				$("h1").offset({ left: offset });
+				offset--;
+				if (offset < 0) {
+					offset = 200;
+					direction = "up";
+				}
+			} else if (direction === "up") {
+				$("h1").offset({ top: offset });
+				offset--;
+				if (offset < 0) {
+					offset = 0;
+					direction = "right";
+				}
+			}
+		};
+		var clicker = 0;
+		var intervalLength = 120;
+		var scoreClick = function () {
+			$("h1").text(clicker);
+			intervalLength /= 2;
+			clicker++;
+
+
+
+			if (clicker === 11) {
+				$("h1").text("Вы победили");
+				clearInterval(time);
+				clicker = 10;
+			} else {
+				time = setInterval(moveBox, intervalLength);
+			}
+		}
+
+
+
+
+		$("h1").click(scoreClick);
+		var time = setInterval(moveBox, intervalLength);
+	</script>
+</body>
+
+</html>
+<!-- 
+	при клике ускорятся(новый интервал)
+	при клике меняется заголовок (.text()) (DONE)
+	Когда заголовок =10,То "вы вин" и стоп интервал
+
+ -->
